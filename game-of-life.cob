@@ -23,11 +23,16 @@
            move 1 to new-columns(5,5).
            move 1 to new-columns(6,5).
 
+           perform game-loop until 0 = 1.
+           stop run.
+
+       game-loop.
+           perform simulate.
+           perform print-world.
+
+       simulate.
            move new-world to old-world.
            perform iterate-world.
-
-           perform print-world.
-       stop run.
 
        iterate-world.
            perform iterate-row varying row-counter from 1 by 1 until row-counter > total-rows.
@@ -74,5 +79,6 @@
 
        print-world.
            perform print-row varying row-counter from 1 by 1 until row-counter > total-rows.
+           display ''.
        print-row.
            display new-rows(row-counter).
