@@ -29,6 +29,7 @@
        game-loop.
            perform simulate.
            perform print-world.
+           call "C$SLEEP" using 1 end-call.
 
        simulate.
            move new-world to old-world.
