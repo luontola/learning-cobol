@@ -3,7 +3,7 @@
 
 Compiling and running a COBOL program
 
-    cobc -free -x -o hello hello.cob
+    cobc -free -x -o hello.o hello.cob
     ./hello
 
 
