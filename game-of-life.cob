@@ -62,7 +62,15 @@
                move old-columns(row-counter + 1, column-counter + 1) to cell
                add cell neighbors giving neighbors.
 
-           move neighbors to new-columns(row-counter, column-counter).
+           move old-columns(row-counter, column-counter) to cell.
+           if cell = 1 and neighbors < 2 then
+               move 0 to new-columns(row-counter, column-counter).
+           if cell = 1 and (neighbors = 2 or neighbors = 3) then
+               move 1 to new-columns(row-counter, column-counter).
+           if cell = 1 and neighbors > 3 then
+               move 0 to new-columns(row-counter, column-counter).
+           if cell = 0 and neighbors = 3 then
+               move 1 to new-columns(row-counter, column-counter).
 
        print-world.
            perform print-row varying row-counter from 1 by 1 until row-counter > total-rows.
