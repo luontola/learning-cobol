@@ -25,22 +25,13 @@
        stop run.
 
        iterate-world.
-           move 1 to row-counter.
-           perform iterate-row until row-counter is equal to 11.
-
+           perform iterate-row varying row-counter from 1 by 1 until row-counter = 11.
        iterate-row.
-           move 1 to column-counter.
-           perform iterate-column until column-counter is equal to 11.
-           add 1 to row-counter.
-
+           perform iterate-column varying column-counter from 1 by 1 until column-counter = 11.
        iterate-column.
            move 2 to new-columns(row-counter, column-counter).
-           add 1 to column-counter.
 
        print-world.
-           move 1 to print-counter.
-           perform display-row until print-counter is equal to 11.
-
-       display-row.
+           perform print-row varying print-counter from 1 by 1 until print-counter = 11.
+       print-row.
            display new-rows(print-counter).
-           add 1 to print-counter.
