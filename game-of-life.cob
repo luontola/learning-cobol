@@ -16,12 +16,16 @@
              15 pic 9 value 0.
        01 row-counter pic 9(2) value 0.
        01 column-counter pic 9(2) value 0.
+       01 cell pic 9(1) value 0.
+       01 neighbors pic 9(1) value 0.
        procedure division.
-           move 1 to new-columns(4,5)
-           move 1 to new-columns(5,5)
-           move 1 to new-columns(6,5)
+           move 1 to new-columns(4,5).
+           move 1 to new-columns(5,5).
+           move 1 to new-columns(6,5).
 
+           move new-world to old-world.
            perform iterate-world.
+
            perform print-world.
        stop run.
 
@@ -30,7 +34,35 @@
        iterate-row.
            perform iterate-column varying column-counter from 1 by 1 until column-counter > total-columns.
        iterate-column.
-           move 2 to new-columns(row-counter, column-counter).
+           move 0 to neighbors.
+           if row-counter > 1 and column-counter > 1 then
+               move old-columns(row-counter - 1, column-counter - 1) to cell
+               add cell neighbors giving neighbors.
+           if row-counter > 1 then
+               move old-columns(row-counter - 1, column-counter + 0) to cell
+               add cell neighbors giving neighbors.
+           if row-counter > 1 and column-counter < total-columns then
+               move old-columns(row-counter - 1, column-counter + 1) to cell
+               add cell neighbors giving neighbors.
+
+           if column-counter > 1 then
+               move old-columns(row-counter + 0, column-counter - 1) to cell
+               add cell neighbors giving neighbors.
+           if column-counter < total-columns then
+               move old-columns(row-counter + 0, column-counter + 1) to cell
+               add cell neighbors giving neighbors.
+
+           if row-counter < total-rows and column-counter > 1 then
+               move old-columns(row-counter + 1, column-counter - 1) to cell
+               add cell neighbors giving neighbors.
+           if row-counter < total-rows then
+               move old-columns(row-counter + 1, column-counter + 0) to cell
+               add cell neighbors giving neighbors.
+           if row-counter < total-rows and column-counter < total-columns then
+               move old-columns(row-counter + 1, column-counter + 1) to cell
+               add cell neighbors giving neighbors.
+
+           move neighbors to new-columns(row-counter, column-counter).
 
        print-world.
            perform print-row varying row-counter from 1 by 1 until row-counter > total-rows.
