@@ -42,8 +42,8 @@
        iterate-world.
            perform iterate-row varying row-counter from 1 by 1 until row-counter > total-rows.
        iterate-row.
-           perform iterate-column varying column-counter from 1 by 1 until column-counter > total-columns.
-       iterate-column.
+           perform iterate-cell varying column-counter from 1 by 1 until column-counter > total-columns.
+       iterate-cell.
            move 0 to neighbors.
            if row-counter > 1 and column-counter > 1 then
                move old-columns(row-counter - 1, column-counter - 1) to cell
@@ -85,7 +85,14 @@
        print-world.
            perform print-row varying row-counter from 1 by 1 until row-counter > total-rows.
        print-row.
-           display new-rows(row-counter).
+           perform print-cell varying column-counter from 1 by 1 until column-counter > total-columns.
+           display x"0A" with no advancing. *> newline
+       print-cell.
+           if new-columns(row-counter,column-counter) = 1 then
+               display x"e2968a" with no advancing *> Unicode Character 'LEFT THREE QUARTERS BLOCK' (U+258A)
+           else
+               display ' ' with no advancing
+           end-if.
 
        clear-screen.
            display x"1B" "[2J".
