@@ -19,11 +19,14 @@
        01 cell pic 9(1) value 0.
        01 neighbors pic 9(1) value 0.
        procedure division.
-           move 1 to new-columns(4,5).
-           move 1 to new-columns(5,5).
-           move 1 to new-columns(6,5).
+           *> Glider
+           move 1 to new-columns(1,3).
+           move 1 to new-columns(2,3).
+           move 1 to new-columns(3,3).
+           move 1 to new-columns(3,2).
+           move 1 to new-columns(2,1).
 
-           perform game-loop until 0 = 1.
+           perform game-loop until new-world = old-world.
            stop run.
 
        game-loop.
@@ -80,6 +83,6 @@
 
        print-world.
            perform print-row varying row-counter from 1 by 1 until row-counter > total-rows.
-           display ''.
+           display ' '.
        print-row.
            display new-rows(row-counter).
