@@ -31,6 +31,7 @@
 
        game-loop.
            perform simulate.
+           perform clear-screen.
            perform print-world.
            call "C$SLEEP" using 1 end-call.
 
@@ -83,6 +84,8 @@
 
        print-world.
            perform print-row varying row-counter from 1 by 1 until row-counter > total-rows.
-           display ' '.
        print-row.
            display new-rows(row-counter).
+
+       clear-screen.
+           display x"1B" "[2J".
