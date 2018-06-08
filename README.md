@@ -1,10 +1,9 @@
 
-# SoCraTes UK 2018 - COBOL
+# Learning COBOL (SoCraTes UK 2018)
 
-Compiling and running a COBOL program
+Use `./shell.sh` to start a Docker container with a COBOL compiler.
 
-    cobc -free -x -o hello.o hello.cob
-    ./hello
+Compile and run a COBOL program with `./run.sh hello.cob`
 
 
 ## Links
