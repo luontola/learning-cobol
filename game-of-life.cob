@@ -16,6 +16,10 @@
              15 pic 9 value 0.
        01 row-counter pic 9(2) value 0.
        01 column-counter pic 9(2) value 0.
+       01 x pic 9(2) value 0.
+       01 y pic 9(2) value 0.
+       01 row-offset pic s9(1) value 0.
+       01 column-offset pic s9(1) value 0.
        01 cell pic 9(1) value 0.
        01 neighbors pic 9(1) value 0.
        procedure division.
@@ -44,34 +48,7 @@
        iterate-row.
            perform iterate-cell varying column-counter from 1 by 1 until column-counter > total-columns.
        iterate-cell.
-           move 0 to neighbors.
-           if row-counter > 1 and column-counter > 1 then
-               move old-columns(row-counter - 1, column-counter - 1) to cell
-               add cell neighbors giving neighbors.
-           if row-counter > 1 then
-               move old-columns(row-counter - 1, column-counter + 0) to cell
-               add cell neighbors giving neighbors.
-           if row-counter > 1 and column-counter < total-columns then
-               move old-columns(row-counter - 1, column-counter + 1) to cell
-               add cell neighbors giving neighbors.
-
-           if column-counter > 1 then
-               move old-columns(row-counter + 0, column-counter - 1) to cell
-               add cell neighbors giving neighbors.
-           if column-counter < total-columns then
-               move old-columns(row-counter + 0, column-counter + 1) to cell
-               add cell neighbors giving neighbors.
-
-           if row-counter < total-rows and column-counter > 1 then
-               move old-columns(row-counter + 1, column-counter - 1) to cell
-               add cell neighbors giving neighbors.
-           if row-counter < total-rows then
-               move old-columns(row-counter + 1, column-counter + 0) to cell
-               add cell neighbors giving neighbors.
-           if row-counter < total-rows and column-counter < total-columns then
-               move old-columns(row-counter + 1, column-counter + 1) to cell
-               add cell neighbors giving neighbors.
-
+           perform count-neighbors.
            move old-columns(row-counter, column-counter) to cell.
            if cell = 1 and neighbors < 2 then
                move 0 to new-columns(row-counter, column-counter).
@@ -81,6 +58,47 @@
                move 0 to new-columns(row-counter, column-counter).
            if cell = 0 and neighbors = 3 then
                move 1 to new-columns(row-counter, column-counter).
+
+       count-neighbors.
+           move 0 to neighbors.
+           *> top left
+           move -1 to row-offset.
+           move -1 to column-offset.
+           perform count-neighbor.
+           *> top center
+           move -1 to row-offset.
+           move +0 to column-offset.
+           perform count-neighbor.
+           *> top right
+           move -1 to row-offset.
+           move +1 to column-offset.
+           perform count-neighbor.
+           *> middle left
+           move +0 to row-offset.
+           move -1 to column-offset.
+           perform count-neighbor.
+           *> middle right
+           move +0 to row-offset.
+           move +1 to column-offset.
+           perform count-neighbor.
+           *> bottom left
+           move +1 to row-offset.
+           move -1 to column-offset.
+           perform count-neighbor.
+           *> bottom center
+           move +1 to row-offset.
+           move +0 to column-offset.
+           perform count-neighbor.
+           *> bottom right
+           move +1 to row-offset.
+           move +1 to column-offset.
+           perform count-neighbor.
+       count-neighbor.
+           compute x = row-counter + row-offset.
+           compute y = column-counter + column-offset.
+           if x >= 1 and x <= total-rows and y >= 1 and y <= total-columns then
+               move old-columns(x, y) to cell
+               add cell neighbors giving neighbors.
 
        print-world.
            perform print-row varying row-counter from 1 by 1 until row-counter > total-rows.
