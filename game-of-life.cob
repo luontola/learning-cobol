@@ -5,7 +5,7 @@
        data division.
        working-storage section.
        01 arg pic x(100) value spaces.
-       01 sleep pic 9(1) value 1.
+       01 sleep pic 9 value 1.
        01 total-rows pic 9(2) value 10.
        01 total-columns pic 9(2) value 10.
        01 old-world.
@@ -20,10 +20,10 @@
        01 column-counter pic 9(2) value 0.
        01 x pic 9(2) value 0.
        01 y pic 9(2) value 0.
-       01 row-offset pic s9(1) value 0.
-       01 column-offset pic s9(1) value 0.
-       01 cell pic 9(1) value 0.
-       01 neighbors pic 9(1) value 0.
+       01 row-offset pic s9 value 0.
+       01 column-offset pic s9 value 0.
+       01 cell pic 9 value 0.
+       01 neighbors pic 9 value 0.
        procedure division.
            perform parse-cmdline-args.
 
