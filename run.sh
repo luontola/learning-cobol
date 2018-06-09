@@ -1,4 +1,4 @@
 #!/bin/sh
 set -eu
-cobc -free -x -o out.o "$1"
-./out.o
+cobc -free -x -o a.out "$1"
+./a.out
