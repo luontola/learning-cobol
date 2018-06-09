@@ -4,6 +4,8 @@
        author. Esko Luontola
        data division.
        working-storage section.
+       01 cmdline pic x(100).
+       01 sleep pic 9(1) value 1.
        01 total-rows pic 9(2) value 10.
        01 total-columns pic 9(2) value 10.
        01 old-world.
@@ -23,6 +25,10 @@
        01 cell pic 9(1) value 0.
        01 neighbors pic 9(1) value 0.
        procedure division.
+           accept cmdline from command-line.
+           if cmdline = "--test" then
+               move 0 to sleep.
+
            *> Glider
            move 1 to new-columns(1,3).
            move 1 to new-columns(2,3).
@@ -37,7 +43,7 @@
            perform simulate.
            perform clear-screen.
            perform print-world.
-           call "C$SLEEP" using 1 end-call.
+           call "C$SLEEP" using sleep end-call.
 
        simulate.
            move new-world to old-world.
