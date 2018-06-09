@@ -4,7 +4,7 @@
        author. Esko Luontola
        data division.
        working-storage section.
-       01 cmdline pic x(100).
+       01 arg pic x(100) value spaces.
        01 sleep pic 9(1) value 1.
        01 total-rows pic 9(2) value 10.
        01 total-columns pic 9(2) value 10.
@@ -25,9 +25,7 @@
        01 cell pic 9(1) value 0.
        01 neighbors pic 9(1) value 0.
        procedure division.
-           accept cmdline from command-line.
-           if cmdline = "--test" then
-               move 0 to sleep.
+           perform parse-cmdline-args.
 
            *> Glider
            move 1 to new-columns(1,3).
@@ -38,6 +36,17 @@
 
            perform game-loop until new-world = old-world.
            stop run.
+
+       parse-cmdline-args.
+           accept arg from argument-value.
+           perform until arg = spaces
+               perform parse-cmdline-arg
+               move spaces to arg
+               accept arg from argument-value
+           end-perform.
+       parse-cmdline-arg.
+           if arg = "--test" then
+               move 0 to sleep.
 
        game-loop.
            perform simulate.
