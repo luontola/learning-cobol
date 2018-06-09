@@ -9,13 +9,13 @@
        01 total-rows pic 9(2) value 10.
        01 total-columns pic 9(2) value 10.
        01 old-world.
-         05 old-rows occurs 10 times.
-           10 old-columns occurs 10 times.
-             15 pic 9 value 0.
+         02 old-rows occurs 10 times.
+           03 old-columns occurs 10 times.
+             04 pic 9 value 0.
        01 new-world.
-         05 new-rows occurs 10 times.
-           10 new-columns occurs 10 times.
-             15 pic 9 value 0.
+         02 new-rows occurs 10 times.
+           03 new-columns occurs 10 times.
+             04 pic 9 value 0.
        01 row-counter pic 9(2) value 0.
        01 column-counter pic 9(2) value 0.
        01 x pic 9(2) value 0.
